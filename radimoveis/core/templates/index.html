@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <!-- Banner -->
+    <section id="banner">
+        <h2>Encontre sua nova casa</h2>
+        <p>E sinta-se como se sempre morasse lá.</p>
+        <ul class="actions">
+            <li>
+                <a id="learn-more" href="#section-search" class="button big">Saiba mais</a>
+            </li>
+        </ul>
+    </section>
+
+    <!-- One -->
+    <section id="one" class="wrapper style1 align-center">
+        <div class="container">
+            <header>
+                <h2>É tudo bem simples.</h2>
+                <p>Encontrar o imóvel dos seus sonhos aqui é muito mais fácil porque temos mais de 4 milhões de imóveis
+                    em
+                    um único lugar.</p>
+            </header>
+            <div class="row 200%">
+                <section class="4u 12u$(small)">
+                    <i class="icon big rounded fa fa-search"></i>
+                    <p>Explore todos os imóveis sem sair da sua casa.</p>
+                </section>
+                <section class="4u 12u$(small)">
+                    <i class="icon big rounded fa fa-building-o"></i>
+                    <p>Entre em contato com o anunciante para esclarecer qualquer dúvida.</p>
+                </section>
+                <section class="4u$ 12u$(small)">
+                    <i class="icon big rounded fa fa-heart"></i>
+                    <p>Encontre o tão desejado imóvel.</p>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- Two -->
+    <section id="two" class="wrapper style2 align-center">
+        <div class="container">
+            <header id="section-search">
+                <div class="row uniform 50%">
+                    <div class="10u 12u$(xsmall)">
+                        <form method="get" id="form">
+                            {% csrf_token %}
+                            <input type="text" name="search" id="search"
+                                   placeholder="Digite o bairro, endereço ou cidade:">
+                        </form>
+                    </div>
+                    <div class="2u 12u$(xsmall)">
+                        <a href="#" id="submitSearch" class="button fit">Pesquisar</a>
+                    </div>
+                </div>
+            </header>
+            <div class="row">
+                <section class="feature 6u 12u$(small)">
+                    <img class="image fit" src="{% static 'images/pic01.jpg' %}" alt=""/>
+                    <h3 class="title">Lorem ipsum dolor</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ipsa voluptate, quae quibusdam.
+                        Doloremque similique, reiciendis sit quibusdam aperiam? Lorem ipsum dolor sit amet, consectetur
+                        adipisicing elit.</p>
+                </section>
+                <section class="feature 6u$ 12u$(small)">
+                    <img class="image fit" src="{% static 'images/pic02.jpg' %}" alt=""/>
+                    <h3 class="title">Esse, fugiat, in</h3>
+                    <p>Natus perspiciatis fugit illum porro iusto fuga nam voluptas minima voluptates deserunt, veniam
+                        reiciendis harum repellat necessitatibus. Animi, adipisci qui. Lorem ipsum dolor sit amet,
+                        consectetur adipisicing elit.</p>
+                </section>
+                <section class="feature 6u 12u$(small)">
+                    <img class="image fit" src="{% static 'images/pic03.jpg' %}" alt=""/>
+                    <h3 class="title">Voluptates, repudiandae, dolor</h3>
+                    <p>Voluptatibus repellendus tempora, quia! Consequuntur atque, rerum quis, ullam labore officiis
+                        ipsa
+                        beatae dolore, assumenda eos harum repudiandae, qui ab! Lorem ipsum dolor sit amet, consectetur
+                        adipisicing elit.</p>
+                </section>
+                <section class="feature 6u$ 12u$(small)">
+                    <img class="image fit" src="{% static 'images/pic04.jpg' %}" alt=""/>
+                    <h3 class="title">Eveniet, reiciendis, veniam</h3>
+                    <p>Rem nulla molestiae inventore quibusdam repudiandae doloremque eveniet ullam, qui autem possimus
+                        saepe laudantium numquam sapiente vel. Repudiandae, nihil tempore. Lorem ipsum dolor sit amet,
+                        consectetur adipisicing elit.</p>
+                </section>
+            </div>
+            <ul class="actions">
+                <li class="text-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        $("#learn-more").on('click', function (event) {
+            if (this.hash !== "") {
+                event.preventDefault();
+                var hash = this.hash;
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800, function () {
+                    $("#search").select();
+                });
+            }
+        });
+
+        $("#submitSearch").on('click', function (event) {
+            event.preventDefault();
+            $("form").submit();
+        });
+
+        $('form').submit(function () {
+            if ($('input').val() === "") {
+                $("#search")
+                        .select()
+                        .css({"border": '#FF0000 1px solid'})
+                        .prop("placeholder", "Por favor, digite o local desejado.");
+                return false;
+            }
+        });
+
+    </script>
+{% endblock %}
