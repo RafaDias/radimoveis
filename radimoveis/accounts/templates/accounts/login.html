@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <section id="one" class="wrapper style1 align-center">
+
+    </section>
+    <section id="two" class="wrapper style2 align-center">
+        <div class="login">
+            <div class="main-agileits">
+                <div class="form-w3agile">
+                    <h3>Login</h3>
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <div class="key">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <input type="text" value="Usuário" name="username" id="id_username"
+                                   onfocus="this.value = '';"
+                                   onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="key">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                            <input type="password" value="Password" name="password" id="id_password"
+                                   onfocus="this.value = '';"
+                                   onblur="if (this.value == '') {this.value = 'Password';}" required="">
+                            <div class="clearfix"></div>
+                            <br/>{{ form.username.error }}
+                        </div>
+                        <br/>
+                        <input type="submit" value="Login">
+                        <span class="alert-danger">{{ form.non_field_errors }}</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
