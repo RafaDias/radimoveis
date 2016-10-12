@@ -4,34 +4,34 @@
     <section id="one" class="wrapper style1 align-center">
 
     </section>
-    <section id="two" class="wrapper style2 align-center">
-        <div class="login">
-            <div class="main-agileits">
-                <div class="form-w3agile">
-                    <h3>Login</h3>
-                    <form action="#" method="post">
-                        {% csrf_token %}
-                        <div class="key">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            <input type="text" value="Usuário" name="username" id="id_username"
-                                   onfocus="this.value = '';"
-                                   onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="key">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
-                            <input type="password" value="Password" name="password" id="id_password"
-                                   onfocus="this.value = '';"
-                                   onblur="if (this.value == '') {this.value = 'Password';}" required="">
-                            <div class="clearfix"></div>
-                            <br/>{{ form.username.error }}
-                        </div>
-                        <br/>
-                        <input type="submit" value="Login">
-                        <span class="alert-danger">{{ form.non_field_errors }}</span>
-                    </form>
+    <header class="major">
+        <h2>Login</h2>
+    </header>
+    <section id="main" class="login">
+        <div class="container">
+            <!-- Form -->
+            <form action="." method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="row uniform 50%">
+                    <div class="6u$">
+                        <label for="{{ form.username.id_for_label }}">{{ form.username.label }} :</label>
+                        {{ form.username }}
+                        {{ form.username.errors }}
+                    </div>
+                    <div class="6u$">
+                        <label for="{{ form.password.id_for_label }}">{{ form.password.label }} :</label>
+                        {{ form.password }}
+                        {{ form.password.errors }}
+                    </div>
+                    <div class="6u$">
+                        <ul class="actions">
+                            <li><input type="submit" value="Login" class="special"/></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
+        <div class="wrapper"></div>
     </section>
 {% endblock %}
