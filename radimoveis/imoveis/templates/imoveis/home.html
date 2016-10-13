@@ -1,0 +1,98 @@
+{% extends "imoveis/base.html" %}
+{% load static %}
+{% block content %}
+
+    <!-- Banner -->
+    <section id="banner">
+        <h2>Encontre sua nova casa</h2>
+        <p>E sinta-se como se sempre morasse lá.</p>
+        <ul class="actions">
+            <li>
+                <a id="learn-more" href="#section-search" class="button big">Saiba mais</a>
+            </li>
+        </ul>
+    </section>
+
+    <!-- One -->
+    <section id="one" class="wrapper style1 align-center">
+        <div class="container">
+            <header>
+                <h2>É tudo bem simples.</h2>
+                <p>Encontrar o imóvel dos seus sonhos aqui é muito mais fácil porque temos mais de 4 milhões de imóveis
+                    em
+                    um único lugar.</p>
+            </header>
+            <div class="row 200%">
+                <section class="4u 12u$(small)">
+                    <i class="icon big rounded fa fa-search"></i>
+                    <p>Explore todos os imóveis sem sair da sua casa.</p>
+                </section>
+                <section class="4u 12u$(small)">
+                    <i class="icon big rounded fa fa-building-o"></i>
+                    <p>Entre em contato com o anunciante para esclarecer qualquer dúvida.</p>
+                </section>
+                <section class="4u$ 12u$(small)">
+                    <i class="icon big rounded fa fa-heart"></i>
+                    <p>Feche o negócio!</p>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- Two -->
+    <section id="two" class="wrapper style2 align-center">
+        <div class="container">
+            <header id="section-search">
+                <div class="row uniform 50%">
+                    <div class="10u 12u$(xsmall)">
+                        <form method="GET" id="form">
+                            <input type="text" name="search" id="search"
+                                   placeholder="Digite o bairro, endereço ou cidade:">
+                        </form>
+                    </div>
+                    <div class="2u 12u$(xsmall)">
+                        <a href="#" id="submitSearch" class="button fit">Pesquisar</a>
+                    </div>
+                </div>
+            </header>
+            <div class="row">
+                {% for imovel in imoveis %}
+                    <section class="feature 6u 12u$(small)">
+                        <a href="{{ imovel.get_absolute_url }}"><img class="image fit" src="{{ imovel.imagem.url }}" width="576" height="200" alt=""/></a>
+                        <h3 class="title">{{ imovel.breve_descricao }}</h3>
+                        <p>{{ imovel.detalhes|truncatewords:20 }}</p>
+                    </section>
+                    {% empty %}
+                    <h2>Não há itens :/</h2>
+                {% endfor %}
+            </div>
+            <ul class="actions">
+                <li class="text-center">
+                    <nav aria-label="Page navigation">
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                {% endif %}
+
+                                <span class="current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </nav>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/search.js' %}"></script>
+    <script src="{% static 'js/scroll.js' %}"></script>
+{% endblock %}

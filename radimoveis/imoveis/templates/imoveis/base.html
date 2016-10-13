@@ -16,16 +16,23 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/style-xlarge.css' %}"/>
     <!--[if lte IE 8]><link rel="stylesheet" href="{% static 'css/ie/v8.css' %}" /><![endif]-->
+    {% block stylesheet %} {% endblock %}
 </head>
 <body class="landing">
 
 <!-- Header -->
 <header id="header">
-    <h1><a href="index.html">Radímoveis</a></h1>
+    <h1><a href="{% url 'imoveis:home' %}">Radímoveis</a></h1>
     <nav id="nav">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="generic.html">Administração</a></li>
+            <li><a href="{% url 'imoveis:home' %}">Home</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'imoveis:dashboard' %}">Administração</a></li>
+                <li><a href="{% url 'admin:index' %}">Itens cadastrados</a></li>
+                <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'accounts:login' %}">Login</a></li>
+            {% endif %}
         </ul>
     </nav>
 </header>

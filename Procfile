@@ -1,0 +1,1 @@
+web: gunicorn radimoveis.wsgi --log-file -

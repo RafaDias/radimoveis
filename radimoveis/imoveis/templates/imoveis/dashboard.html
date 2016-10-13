@@ -1,0 +1,110 @@
+{% extends "imoveis/base.html" %}
+{% load static %}
+{% load currency %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/alertify.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/default.min.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <section id="one" class="wrapper style1 align-center">
+
+    </section>
+    <section id="main" class="wrapper">
+        <div class="container">
+
+            <header class="major">
+                <h2>Administração</h2>
+                <p>Caso queira inserir um novo imóvel, clique <a href="{% url 'imoveis:new' %}">aqui</a>.</p>
+                <div class="row uniform 50%">
+                    <div class="10u 12u$(xsmall)">
+                        <form method="GET" id="form">
+                            <input type="text" name="search" id="search"
+                                   placeholder="Digite o bairro, endereço ou cidade:">
+                        </form>
+                    </div>
+                    <div class="2u 12u$(xsmall)">
+                        <a href="#" id="submitSearch" class="button fit">Pesquisar</a>
+                    </div>
+                </div>
+            </header>
+            <!-- Table -->
+            <section>
+                <div class="table-wrapper">
+                    <table class="alt table-center">
+                        <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Imagem</th>
+                            <th>Preço</th>
+                            <th>Ações</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for imovel in imoveis %}
+                            <tr>
+                                <td class="middle-td">
+                                    <a href="{{ imovel.get_absolute_url }}">
+                                        {{ imovel.breve_descricao }}
+                                    </a>
+                                </td>
+                                <td>{{ imovel.thumb }}</td>
+                                <td class="middle-td">{{ imovel.preco|currency }}</td>
+                                <td class="middle-td">
+                                    <a href="/edit/{{ imovel.slug }}"
+                                       class="button alt small icon fa-download">
+                                        Editar
+                                    </a>
+                                </td>
+                                <td class="middle-td">
+                                    <a href="{{ imovel.slug }}"
+                                       class="button alt small icon fa-download delete-btn">
+                                        Excluir
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td>-//-</td>
+                                <td>-//-</td>
+                                <td>-//-</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </section>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/alertify.min.js' %}"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+
+    <script>
+        $(".delete-btn").click(function (e) {
+            e.preventDefault();
+            var slug = ($(this).attr('href'));
+            alertify.confirm('Alerta', 'Deseja deletar o item selecionado?', function () {
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'imoveis:delete' %}",
+                    data: {
+                        'slug': slug,
+                        'csrfmiddlewaretoken': '{{csrf_token}}'
+                    },
+                    success: function (response) {
+                        alertify.success(response.message);
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 5000);
+                    }
+                })
+            }, function () {
+                alertify.error('Cancelado.')
+            });
+        });
+    </script>
+{% endblock %}
