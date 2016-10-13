@@ -19,5 +19,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^', include('radimoveis.imoveis.urls', namespace='imoveis')),
     url(r'^accounts/', include('radimoveis.accounts.urls', namespace='accounts')),
+    url(r'^grappelli/', include('grappelli.urls')), # grappelli URLS
     url(r'^admin/', admin.site.urls),
 ]
