@@ -23,7 +23,7 @@ class ImovelManager(models.Manager):
         location = self.get_queryset().get(id=id).location()
         imoveis_proximos = set()
         for imovel in self.get_queryset().exclude(id=id):
-            if distancia_em_km(location, imovel.location()).kilometers <= 5.0:
+            if distancia_em_km(location, imovel.location()).kilometers <= 1.0:
                 imoveis_proximos.add(imovel)
 
         return imoveis_proximos
