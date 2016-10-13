@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,3 +143,6 @@ AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 # google maps
 
 GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+
+#grappeli
+GRAPPELLI_ADMIN_TITLE = "Administração - Radimoveis"
